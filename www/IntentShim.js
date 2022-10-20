@@ -49,6 +49,11 @@ IntentShim.prototype.startService = function (params, successCallback, errorCall
     exec(successCallback, errorCallback, "IntentShim", "startService", [params]);
 };
 
+IntentShim.prototype.startForegroundService = function (params, successCallback, errorCallback) {
+    argscheck.checkArgs('off', 'IntentShim.startForegroundService', arguments);
+    exec(successCallback, errorCallback, "IntentShim", "startForegroundService", [params]);
+};
+
 IntentShim.prototype.registerBroadcastReceiver = function (params, callback) {
     argscheck.checkArgs('of', 'IntentShim.registerBroadcastReceiver', arguments);
     exec(callback, null, "IntentShim", "registerBroadcastReceiver", [params]);

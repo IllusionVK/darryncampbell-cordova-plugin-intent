@@ -116,6 +116,18 @@ public class IntentShim extends CordovaPlugin {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
             return true;
         }
+        else if (action.equals("startForegroundService"))
+        {
+            if (args.length() != 1) {
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.INVALID_ACTION));
+                return false;
+            }
+            JSONObject obj = args.getJSONObject(0);
+            Intent intent = populateIntent(obj, callbackContext);
+            startForegroundService(intent);
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
+            return true;
+        }
         else if (action.equals("registerBroadcastReceiver"))
         {
             Log.d(LOG_TAG, "Plugin no longer unregisters receivers on registerBroadcastReceiver invocation");
@@ -458,6 +470,11 @@ public class IntentShim extends CordovaPlugin {
     private void startService(Intent intent)
     {
         this.cordova.getActivity().startService(intent);
+    }
+
+    private void startForegroundService(Intent intent)
+    {
+        this.cordova.getActivity().startForegroundService(intent);
     }
 
     private Intent populateIntent(JSONObject obj, CallbackContext callbackContext) throws JSONException
